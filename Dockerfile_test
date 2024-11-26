@@ -1,0 +1,17 @@
+# FROM klakegg/hugo:latest
+
+# maybe go official one day, but this comes with git and other stuff
+FROM hugomods/hugo
+WORKDIR /sites
+RUN git clone https://github.com/jmtremblay2/jmopines.git
+WORKDIR /sites/jmopines
+RUN git submodule update --init --recursive
+
+# Expose port 1313 (the default Hugo port)
+EXPOSE 1313
+
+# this looks silly, but I used that to verify that I'm saving the right files in git
+# if I'm not sure that everything is saved, I can always run my site like this and
+# browse where I am interested and verify that my site loads properly without any
+# unsaved local configs
+CMD ["hugo", "server", "--bind", "0.0.0.0"]

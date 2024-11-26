@@ -1,4 +1,4 @@
-baseURL = 'https://jmopines.com/'
+baseURL = '/'
 languageCode = 'en-us'
 title = "JM's cool site"
 theme = 'terminal'
@@ -65,11 +65,11 @@ paginate = 5
         [[languages.en.menu.main]]
           identifier = "about"
           name = "About"
-          url = "/about"
+          url = "/about/"
         [[languages.en.menu.main]]
           identifier = "resume"
           name = "Resume"
-          url = "/resume"
+          url = "/resume/"
 
         # [[languages.en.menu.main]]
         #   identifier = "showcase"
