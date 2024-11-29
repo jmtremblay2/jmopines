@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Nginx Docker container for jmopines.com
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c 'docker stop jmopines-nginx || true; docker rm jmopines-nginx || true; /bin/bash /home/jm/sites/jmopines/run.sh'
+ExecStop=/bin/bash -c 'docker stop jmopines-nginx && docker rm jmopines-nginx'
+KillMode=control-group
+Restart=always
+RestartSec=5
+KillMode=process
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
