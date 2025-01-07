@@ -2,7 +2,9 @@ baseURL = '/'
 languageCode = 'en-us'
 title = "JM's cool site"
 theme = 'terminal'
-paginate = 5
+
+[pagination]
+  pagerSize = 5
 
 [params]
   # dir name of your main content (default is `content/posts`).

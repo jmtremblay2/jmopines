@@ -3,8 +3,11 @@ Description=Run Nginx Docker container for jmopines.com
 After=network.target
 
 [Service]
+User=jm
+Group=jm
+ExepStartPre=/home/jm/sites/jmopines/stop.sh
 ExecStart=/home/jm/sites/jmopines/run.sh
-KillMode=control-group
+ExecStop=/home/jm/sites/jmopines/stop.sh
 Restart=always
 RestartSec=5
 KillMode=process

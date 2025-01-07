@@ -1,20 +1,26 @@
 #!/bin/bash
+set -x
+set -e
 
-# looks overkill but that way with a docker
-# it's easier to control what version of hugo 
-# I use
+# create the public repository if it does not exist
+sudo mkdir -p /public
+sudo chown $(whoami):$(whoami) /public
 
-if [ -z "${PUBLIC_DEST}" ]; then 
-    DEST="/sites/${HUGO_SITE}/public"
-else
-    DEST="${PUBLIC_DEST}"
-fi
+# site name, create destination name
+SITE=$(basename "$PWD")
+DEST="/public/${SITE}"
+mkdir -p ${DEST}
+# maybe make this an option... need to verify what happens
+# to the public folder on successive builds
+rm -rf ${DEST}/*
 
-echo "building ${SITES_ROOT}/${HUGO_SITE} to ${DEST}"
-
+echo "building ${SITE} to ${DEST}"
 docker run -it \
-    -v "${SITES_ROOT}/":/sites/ \
-    -v "${HOME}/public/":/public/ \
+    -v "$(pwd)/":/site/ \
+    -v "${DEST}":/public/ \
     -u $(id -u):$(id -g)\
     hugomods/hugo \
-    hugo build -s /sites/${HUGO_SITE} -d ${DEST}
+    hugo build -s /site -d /public
+
+rm -rf ${DEST}/nginx.conf
+cp -f nginx.conf ${DEST}/nginx.conf
